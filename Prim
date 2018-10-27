@@ -1,5 +1,8 @@
-/* 
-*   هذا مبدئي طبعا بنغير في الكود
+/*
+ Group Members:
+ Algorithms and Data Structures
+ Section CH 
+ Project 4 - Prim's Algorithm 
  */
 package prim;
 
@@ -12,7 +15,7 @@ public class Prim {
     /**
      * @param args the command line arguments
      */
-       public static void main(String[] args) {
+    public static void main(String[] args) {
         final int INF = 10000;
 
         int[][] Matrix = {{INF, 4, INF, INF, INF, INF, INF, 8, INF},
@@ -25,38 +28,42 @@ public class Prim {
         {8, 11, INF, INF, INF, INF, 1, INF, 7},
         {INF, INF, 2, INF, INF, INF, 6, 7, INF}};
 
-        int[] visited = new int[9];
-        int min=0;
-        int v = 0;
-        int u = 0;
-        int total = 0;
-        visited[0] = 1;
-
-        Prim(Matrix,visited,min,v,u,total);
+        int source = 0;
+        Prim(Matrix, INF, source);
     }
-    
-     public static void Prim(int[][] Matrix,int[] visited,int min,int v,int u,int total ) {
-          System.out.println("The edge is : ");
-         for (int i = 0; i < 8; i++) {
-            min = 999;
+
+    public static void Prim(int[][] Matrix, int INF, int source) {
+        int[] visited = new int[Matrix.length];
+        visited[0] = 1;
+        int headNode = 0;
+        int tailNode = 0;
+        int totalCost = 0;
+        int smallestCost = 0;
+        System.out.println("The edges are: ");
+        // a MST with <Matrix.length> nodes 
+        // will have <Matrix.length - 1> edges
+        for (int i = 0; i < Matrix.length - 1; i++) {
+            smallestCost = INF;
             for (int j = 0; j < Matrix.length; j++) {
                 if (visited[j] == 1) {
                     for (int k = 0; k < Matrix.length; k++) {
                         if (visited[k] != 1) {
-                            if (min > Matrix[j][k]) {
-                                min = Matrix[j][k];
-                                u = j;
-                                v = k;
+                            if (smallestCost > Matrix[j][k]) {
+                                smallestCost = Matrix[j][k];
+                                headNode = j;
+                                // vertex:
+                                tailNode = k;
                             }
                         }
                     }
                 }
             }
-            visited[v] = 1;
-            total+=min;
-            System.out.print (u+","+v+" "+".. ");
-           
-        }System.out.println("");  
-         System.out.println("The minimum weight is :"+total);  
-     }
+            visited[tailNode] = 1;
+            totalCost += smallestCost;
+            System.out.print("("+headNode + "," + tailNode + ") " + "\n");
+
+        }
+        System.out.println("");
+        System.out.println("The minimum weight is: " + totalCost);
+    }
 }

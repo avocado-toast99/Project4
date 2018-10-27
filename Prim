@@ -1,8 +1,9 @@
+
 /*
  Group Members:
  Algorithms and Data Structures
  Section CH 
- Project 4 - Prim's Algorithm 
+ Project 3 - Part 2 - Prim's Algorithm 
  */
 package prim;
 
@@ -29,16 +30,24 @@ public class Prim {
         {INF, INF, 2, INF, INF, INF, 6, 7, INF}};
 
         int source = 0;
-        Prim(Matrix, INF, source);
+        Vertex[][] minHeap = Prim(Matrix, INF, source);
+        print(minHeap);
     }
 
-    public static void Prim(int[][] Matrix, int INF, int source) {
+    public static Vertex[][] Prim(int[][] Matrix, int INF, int source) {
         int[] visited = new int[Matrix.length];
         visited[0] = 1;
-        int headNode = 0;
-        int tailNode = 0;
+        int parentIndex = source;
+        int fringeIndex = source;
         int totalCost = 0;
         int smallestCost = 0;
+        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        char[] labels = new char[Matrix.length];
+        for (int i = 0; i < Matrix.length; i++) {
+            labels[i] = alphabet[i];
+        }
+        Vertex[][] minHeap = new Vertex[Matrix.length][2];
+
         System.out.println("The edges are: ");
         // a MST with <Matrix.length> nodes 
         // will have <Matrix.length - 1> edges
@@ -50,20 +59,80 @@ public class Prim {
                         if (visited[k] != 1) {
                             if (smallestCost > Matrix[j][k]) {
                                 smallestCost = Matrix[j][k];
-                                headNode = j;
-                                // vertex:
-                                tailNode = k;
+                                parentIndex = j;
+                                fringeIndex = k;
                             }
                         }
                     }
                 }
             }
-            visited[tailNode] = 1;
-            totalCost += smallestCost;
-            System.out.print("("+headNode + "," + tailNode + ") " + "\n");
+            visited[fringeIndex] = 1;
 
+            // before adding any vertex to the heap, check if it already exists:
+            Vertex Parent = new Vertex();
+            Parent.index = parentIndex;
+            Parent.label = labels[parentIndex];
+            Parent.weight = totalCost;
+
+            totalCost += smallestCost;
+
+            Vertex Fringe = new Vertex();
+            Fringe.index = fringeIndex;
+            Fringe.label = labels[fringeIndex];
+            Fringe.weight = totalCost;
+
+           // prints ab = 4;
+//            minHeap[fringeIndex][0] = Parent;
+//            minHeap[fringeIndex][1] = Fringe;
+            
+            
+            // prints sorted:
+             minHeap[i][0] = Parent;
+             minHeap[i][1] = Fringe;
+            
+            
+            
+            
+
+            //System.out.print("(" + minHeap[fringeIndex][0].getLabel() + "," + minHeap[fringeIndex][1].getLabel() + ") " + " with the cost of " + minHeap[fringeIndex][1].weight + "\n");
+//
+//            minHeap[i][parentIndex] = Parent;
+//            minHeap[i][fringeIndex] = new Vertex(Parent, fringeIndex, totalCost, labels[fringeIndex]);
+            //System.out.print("(" + parentIndex + "," + fringeIndex + ") " + "\n");
         }
-        System.out.println("");
-        System.out.println("The minimum weight is: " + totalCost);
+        //System.out.println("");
+//        System.out.println("The minimum weight is: " + totalCost);
+        return minHeap;
+    }
+
+    public static void print(Vertex[][] minHeap) {
+        int total = 0;
+        //rows:
+        for (int i = 0; i < minHeap.length; i++) {
+
+            if (minHeap[i][0] != null) {
+                System.out.print("(" + minHeap[i][0].getLabel() + "," + minHeap[i][1].getLabel() + ") " + " with the cost of " + minHeap[i][0].weight + "\n");
+            }
+
+            
+            
+        }
+        
+//     System.out.println("The minimum weight is: " + minHeap[minHeap.length-1][1].weight);
+
+        
+
+//        for (int i = 0; i < minHeap.length; i++) {
+//        
+//            
+//            for (int j = 0; j < 10; j++) {
+//                
+//            }
+//                           // System.out.print("(" + minHeap[i][i].getLabel() + "," + minHeap[j][i].getLabel() + ") " + " with the cost of " + minHeap[j][i].weight + "\n");
+//
+//                
+//            
+//        }
+//               // System.out.println("The minimum weight is: " + minHeap[minHeap.length-1]);
     }
 }

@@ -52,7 +52,7 @@ public class Prim {
     
     
         /*
-         Dijkstra’s Algorithm
+         Prim’s Algorithm
         
         
          - Description:

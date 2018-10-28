@@ -46,6 +46,28 @@ public class Prim {
     }
 
     public static Vertex[][] Prim(int[][] Matrix, int INF, int source) {
+    
+    
+    
+    
+    
+        /*
+         Dijkstra’s Algorithm
+        
+        
+         - Description:
+        
+        
+         - Parameters:
+        
+        
+        
+         - Output:
+        
+        
+         */
+         
+         
         int[] visited = new int[Matrix.length];
         visited[0] = 1;
         int parentIndex = source;

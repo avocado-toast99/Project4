@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ Group Members:
+ Algorithms and Data Structures
+ Section CH 
+ Project 3 - Prim's Algorithm 
  */
 package prim;
 
@@ -15,12 +16,16 @@ public class Vertex {
     char label;
     int weight;
     Vertex parent;
-//    Vertex rightChild;
-//    Vertex leftChild;
-//    int level;
-//    int order;
-//    int nodesInSameLine;
+
     int index;
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
     
     
 
@@ -55,28 +60,5 @@ public class Vertex {
         this.parent = parent;
     }
 
-//    public Vertex getRightChild() {
-//        return rightChild;
-//    }
-//
-//    public void setRightChild(Vertex rightChild) {
-//        this.rightChild = rightChild;
-//    }
-//
-//    public Vertex getLeftChild() {
-//        return leftChild;
-//    }
-//
-//    public void setLeftChild(Vertex leftChild) {
-//        this.leftChild = leftChild;
-//    }
-//
-//    public boolean hasLeftChild() {
-//        return this.leftChild == null;
-//    }
-//
-//    public boolean hasRightChild() {
-//        return this.rightChild == null;
-//    }
 
 }

@@ -19,15 +19,26 @@ public class Prim {
     public static void main(String[] args) {
         final int INF = 10000;
 
-        int[][] Matrix = {{INF, 4, INF, INF, INF, INF, INF, 8, INF},
-        {4, INF, 8, INF, INF, INF, INF, 11, INF},
-        {INF, 8, INF, 7, INF, 4, INF, INF, 2},
-        {INF, INF, 7, INF, 9, 14, INF, INF, INF},
-        {INF, INF, INF, 9, INF, 10, INF, INF, INF},
-        {INF, INF, 4, 14, 10, INF, 2, INF, INF},
-        {INF, INF, INF, INF, INF, 2, INF, 1, 6},
-        {8, 11, INF, INF, INF, INF, 1, INF, 7},
-        {INF, INF, 2, INF, INF, INF, 6, 7, INF}};
+        int[][] Matrix = {
+            // A  B   C    D    E    F    G   H   I
+            // a
+            {INF, 4, INF, INF, INF, INF, INF, 8, INF},
+            // b
+            {4, INF, 8, INF, INF, INF, INF, 11, INF},
+            // c
+            {INF, 8, INF, 7, INF, 4, INF, INF, 2},
+            // d
+            {INF, INF, 7, INF, 9, 14, INF, INF, INF},
+            // e
+            {INF, INF, INF, 9, INF, 10, INF, INF, INF},
+            // f
+            {INF, INF, 4, 14, 10, INF, 2, INF, INF},
+            // g 
+            {INF, INF, INF, INF, INF, 2, INF, 1, 6},
+            // h
+            {8, 11, INF, INF, INF, INF, 1, INF, 7},
+            // i
+            {INF, INF, 2, INF, INF, INF, 6, 7, INF}};
 
         int source = 0;
         Vertex[][] minHeap = Prim(Matrix, INF, source);
@@ -54,8 +65,10 @@ public class Prim {
         for (int i = 0; i < Matrix.length - 1; i++) {
             smallestCost = INF;
             for (int j = 0; j < Matrix.length; j++) {
+                // parent
                 if (visited[j] == 1) {
                     for (int k = 0; k < Matrix.length; k++) {
+                        // fringe
                         if (visited[k] != 1) {
                             if (smallestCost > Matrix[j][k]) {
                                 smallestCost = Matrix[j][k];
@@ -79,29 +92,16 @@ public class Prim {
             Vertex Fringe = new Vertex();
             Fringe.index = fringeIndex;
             Fringe.label = labels[fringeIndex];
-            Fringe.weight = totalCost;
+            Fringe.weight = smallestCost;
 
-           // prints ab = 4;
+            // prints ab = 4;
 //            minHeap[fringeIndex][0] = Parent;
 //            minHeap[fringeIndex][1] = Fringe;
-            
-            
             // prints sorted:
-             minHeap[i][0] = Parent;
-             minHeap[i][1] = Fringe;
-            
-            
-            
-            
-
-            //System.out.print("(" + minHeap[fringeIndex][0].getLabel() + "," + minHeap[fringeIndex][1].getLabel() + ") " + " with the cost of " + minHeap[fringeIndex][1].weight + "\n");
-//
-//            minHeap[i][parentIndex] = Parent;
-//            minHeap[i][fringeIndex] = new Vertex(Parent, fringeIndex, totalCost, labels[fringeIndex]);
-            //System.out.print("(" + parentIndex + "," + fringeIndex + ") " + "\n");
-        }
-        //System.out.println("");
-//        System.out.println("The minimum weight is: " + totalCost);
+            minHeap[i][0] = Parent;
+            minHeap[i][1] = Fringe;
+    }
+       
         return minHeap;
     }
 
@@ -111,28 +111,13 @@ public class Prim {
         for (int i = 0; i < minHeap.length; i++) {
 
             if (minHeap[i][0] != null) {
-                System.out.print("(" + minHeap[i][0].getLabel() + "," + minHeap[i][1].getLabel() + ") " + " with the cost of " + minHeap[i][0].weight + "\n");
+                System.out.print("(" + minHeap[i][0].getLabel() + "," + minHeap[i][1].getLabel() + ") " + " with the cost of " + minHeap[i][1].weight + "\n");
+                total += minHeap[i][1].weight;
+
             }
 
-            
-            
         }
-        
-//     System.out.println("The minimum weight is: " + minHeap[minHeap.length-1][1].weight);
 
-        
-
-//        for (int i = 0; i < minHeap.length; i++) {
-//        
-//            
-//            for (int j = 0; j < 10; j++) {
-//                
-//            }
-//                           // System.out.print("(" + minHeap[i][i].getLabel() + "," + minHeap[j][i].getLabel() + ") " + " with the cost of " + minHeap[j][i].weight + "\n");
-//
-//                
-//            
-//        }
-//               // System.out.println("The minimum weight is: " + minHeap[minHeap.length-1]);
+        System.out.println("The minimum weight is: " + total);
     }
 }

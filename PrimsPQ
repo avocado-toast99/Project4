@@ -22,7 +22,7 @@ public class PrimsPQ {
 
     static class HeapNode{
         int vertex;
-        int key;
+        int Min;
     }
 
     static class ResultSet {
@@ -55,29 +55,29 @@ public class PrimsPQ {
 
             boolean[] inPriorityQueue = new boolean[vertices];
             ResultSet[] resultSet = new ResultSet[vertices];
-            int [] key = new int[vertices];  //keys used to store the key to know whether priority queue update is required
+            int [] Min = new int[vertices];  //Mins used to store the Min to know whether priority queue update is required
 
 //          //create heapNode for all the vertices
             HeapNode [] heapNodes = new HeapNode[vertices];
             for (int i = 0; i <vertices ; i++) {
                 heapNodes[i] = new HeapNode();
                 heapNodes[i].vertex = i;
-                heapNodes[i].key = Integer.MAX_VALUE;
+                heapNodes[i].Min = Integer.MAX_VALUE;
                 resultSet[i] = new ResultSet();
                 resultSet[i].parent = -1;
                 inPriorityQueue[i] = true;
-                key[i] = Integer.MAX_VALUE;
+                Min[i] = Integer.MAX_VALUE;
             }
 
-            //decrease the key for the first index
-            heapNodes[0].key = 0;
+            //decrease the Min for the first index
+            heapNodes[0].Min = 0;
 
             //add all the vertices to the priority queue
             PriorityQueue<HeapNode> pq = new PriorityQueue<>(vertices,
                     new Comparator<HeapNode>() {
                         @Override
                         public int compare(HeapNode o1, HeapNode o2) {
-                            return o1.key -o2.key;
+                            return o1.Min -o2.Min;
                         }
                     });
             //add all the vertices to priority queue
@@ -102,13 +102,13 @@ public class PrimsPQ {
                     if(inPriorityQueue[edge.destination]) {
                         int destination = edge.destination;
                         int newKey = edge.weight;
-                        //check if updated key < existing key, if yes, update if
-                        if(key[destination]>newKey) {
+                        //check if updated Min < existing Min, if yes, update if
+                        if(Min[destination]>newKey) {
                             decreaseKey(pq, newKey, destination);
                             //update the parent node for destination
                             resultSet[destination].parent = extractedVertex;
                             resultSet[destination].weight = newKey;
-                            key[destination] = newKey;
+                            Min[destination] = newKey;
                         }
                     }
                 }
@@ -119,14 +119,14 @@ public class PrimsPQ {
 
         public void decreaseKey(PriorityQueue<HeapNode> pq, int newKey, int vertex){
 
-            //iterate through nodes in priority queue and update the key for the vertex
+            //iterate through nodes in priority queue and update the Min for the vertex
             Iterator it = pq.iterator();
 
             while (it.hasNext()) {
                 HeapNode heapNode = (HeapNode) it.next();
                 if(heapNode.vertex==vertex) {
                     pq.remove(heapNode);
-                    heapNode.key = newKey;
+                    heapNode.Min = newKey;
                     pq.offer(heapNode);
                     break;
                 }
@@ -141,7 +141,7 @@ public class PrimsPQ {
                         " Min: " + resultSet[i].weight);
                 total_min_weight += resultSet[i].weight;
             }
-            System.out.println("The minimum weight is: "+ total_min_weight);
+            System.out.println("The minimum weight is: " + total_min_weight);
         }
     }
      public static void main(String[] args) {

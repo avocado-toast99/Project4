@@ -141,7 +141,7 @@ public class PrimsPQ {
                         " Min: " + resultSet[i].weight);
                 total_min_weight += resultSet[i].weight;
             }
-            System.out.println("Total minimum key: " + total_min_weight);
+            System.out.println("The minimum weight is: "+ total_min_weight);
         }
     }
      public static void main(String[] args) {
